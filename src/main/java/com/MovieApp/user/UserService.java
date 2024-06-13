@@ -1,9 +1,7 @@
 package com.MovieApp.user;
-
-import com.MovieApp.movie.Movie;
-import com.MovieApp.movie.MovieService;
 import com.MovieApp.role.Role;
 import com.MovieApp.role.RoleRepository;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;

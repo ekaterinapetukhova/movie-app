@@ -1,9 +1,12 @@
 package com.MovieApp.authorization;
 
 import com.MovieApp.user.*;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +27,7 @@ public class AuthorizationController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
-    @GetMapping("/registration")
+    @GetMapping("registration")
     public String showRegistration(Model model) {
         model.addAttribute("user", new UserDto());
         model.addAttribute("module", "registration");
@@ -45,15 +48,13 @@ public class AuthorizationController {
         }
     }
 
-    @PostMapping("/registration")
+    @PostMapping("registration")
     public String processRegistration(@Valid @ModelAttribute("user") UserDto userDto,
                                       BindingResult result,
                                       HttpServletRequest request
     ) {
 
-        if (result.hasErrors()) {
-            return "registration";
-        }
+        if (result.hasErrors()) return "registration";
 
         userService.saveUser(userDto);
 
@@ -62,7 +63,7 @@ public class AuthorizationController {
         return "redirect:/movies";
     }
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String showLoginPage(Model model) {
         model.addAttribute("module", "login");
         return "login";

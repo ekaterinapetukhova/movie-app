@@ -2,7 +2,6 @@ package com.MovieApp.movie;
 
 import com.MovieApp.review.Review;
 
-import com.MovieApp.user.User;
 import jakarta.persistence.*;
 
 import lombok.*;

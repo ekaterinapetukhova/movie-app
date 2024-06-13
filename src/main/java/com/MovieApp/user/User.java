@@ -1,6 +1,5 @@
 package com.MovieApp.user;
 
-import com.MovieApp.movie.Movie;
 import com.MovieApp.review.Review;
 import com.MovieApp.role.Role;
 

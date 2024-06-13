@@ -4,9 +4,9 @@ import com.MovieApp.review.Review;
 import com.MovieApp.review.ReviewService;
 import com.MovieApp.user.User;
 import com.MovieApp.user.UserService;
+
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +23,8 @@ public class MovieController {
     private final MovieService movieService;
     private final ReviewService reviewService;
     private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 
-    @GetMapping({"/", "/movies"})
+    @GetMapping({"/", "movies"})
     public String showMoviesPage(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);
@@ -76,7 +75,7 @@ public class MovieController {
         return "add-movie";
     }
 
-    @PostMapping("/add-movie")
+    @PostMapping("add-movie")
     public String addMovie(@ModelAttribute("newMovie") Movie movie,
                            @RequestParam("file") MultipartFile posterFile) {
         try {

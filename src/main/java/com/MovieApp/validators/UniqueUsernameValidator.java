@@ -1,9 +1,11 @@
 package com.MovieApp.validators;
 
 import com.MovieApp.user.UserRepository;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+
+import jakarta.validation.*;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Component;
 
 @Component

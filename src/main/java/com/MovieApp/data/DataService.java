@@ -8,7 +8,9 @@ import com.MovieApp.role.Role;
 import com.MovieApp.role.RoleRepository;
 import com.MovieApp.user.User;
 import com.MovieApp.user.UserRepository;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
