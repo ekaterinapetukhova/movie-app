@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:include="fragments/head">
+    <title id="pageTitle">Login</title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section login">
+                <div class="login__container">
+                    <h2 class="login__title">Login</h2>
+                    <div class="login__errors">
+                        <div th:if="${param.error}" class="login__error">Invalid username or password</div>
+                        <div th:if="${param.logout}" class="login__error">You have been logged out</div>
+                    </div>
+                    <form class="login__form form"
+                          role="form"
+                          th:action="@{/login}"
+                          method="post">
+                        <div class="form__input-field">
+                            <label class="form__label" for="username">Username:</label>
+                            <input class="form__input" type="text" id="username" name="username" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="password">Password:</label>
+                            <input class="form__input" type="password" id="password" name="password" autocomplete="off">
+                        </div>
+                        <button class="form__button">Sign In</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+</body>
+</html>

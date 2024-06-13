@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:include="fragments/head">
+    <title id="pageTitle">Movies</title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section movies">
+                <div class="movies__container">
+                    <h2 class="movies__title">
+                        Movies & Reviews
+                    </h2>
+                    <p class="movies__text">
+                        Here you can choose a movie and write your opinion about it. We have reviews on different movies — from <span class="movies__text_accent">old classics</span> to <span class="movies__text_accent">new hits</span>.
+                        Have you seen an amazing movie?
+                        Leave <span class="movies__text_accent">your review</span> and help other viewers choose what to watch. Join us and share your movie impressions!
+                    </p>
+                    <ul class="movies__list">
+                        <li class="movies__item item-movies" th:each="movie : ${movies}">
+                            <a class="item-movie__link" th:href="@{${'/movies/' + movie.getId()}}">
+                                <div class="item-movies__wrapper">
+                                    <img class="item-movies__img" th:src="@{${'/images/' + movie.getPosterUrl()}}" th:alt="${movie.getTitle()}">
+                                    <div class="item-movies__info">
+                                        <h3 class="item-movies__title" th:text="${movie.getTitle()}" ></h3>
+                                        <p class="item-movies__text" th:text="${movie.getGenre()} + ', ' + ${movie.getYear()}"></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="movies__refresh">
+                        <button class="movies__button" onclick="">
+                            <img class="movies__button_img" th:src="@{/icons/refresh.svg}" alt="Refresh Button">
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+
+    <script th:src="@{/js/showMoreMovies.js}"></script>
+</body>
+</html>

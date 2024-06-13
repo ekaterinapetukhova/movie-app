@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head">
+    <title id="pageTitle">Add Movie</title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section add-movie">
+                <div class="add-movie__container">
+                    <form class="add-movie__form form"
+                          th:action="@{/add-movie}"
+                          th:object="${newMovie}"
+                          method="post"
+                          enctype="multipart/form-data"
+                    >
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-title">Title:</label>
+                            <input class="form__input" type="text" id="input-title" th:field="*{title}" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-date">Year:</label>
+                            <input class="form__input" type="number" id="input-date" th:field="*{year}" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-genre">Genre:</label>
+                            <input class="form__input" type="text" id="input-genre" th:field="*{genre}" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-country">Country:</label>
+                            <input class="form__input" type="text" id="input-country" th:field="*{country}" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-director">Director:</label>
+                            <input class="form__input" type="text" id="input-director" th:field="*{director}" autocomplete="off">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="input-poster">Poster:</label>
+                            <input class="form__input" type="file" id="input-poster" name="file">
+                        </div>
+                        <div class="form__input-field">
+                            <label class="form__label" for="textarea-description">Description:</label>
+                            <textarea class="form__textarea" id="textarea-description" th:field="*{description}" autocomplete="off"></textarea>
+                        </div>
+                        <button class="form__button">Add</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+</body>
+</html>

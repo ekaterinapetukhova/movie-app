@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:include="fragments/head">
+    <title id="pageTitle" th:text="${movie.getTitle()}"></title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section movie">
+                <div class="movie__container">
+                    <div class="movie__about">
+                        <img class="movie__img" th:src="@{${'/images/' + movie.getPosterUrl()}}" th:alt="${movie.getTitle()}" >
+                        <div class="movie__content content">
+                            <ul class="content__list">
+                                <li class="content__item">
+                                    <h3 class="content__title" th:text="${movie.getTitle()}"></h3>
+                                </li>
+                                <li class="content__item">
+                                    <span class="content__span">Year</span>
+                                    <p class="content__text" th:text="${movie.getYear()}"></p>
+                                </li>
+                                <li class="content__item">
+                                    <span class="content__span">Genre</span>
+                                    <p class="content__text" th:text="${movie.getGenre()}"></p>
+                                </li>
+                                <li class="content__item">
+                                    <span class="content__span">Country</span>
+                                    <p class="content__text" th:text="${movie.getCountry()}"></p>
+                                </li>
+                                <li class="content__item">
+                                    <span class="content__span">Directed by</span>
+                                    <p class="content__text" th:text="${movie.getDirector()}"></p>
+                                </li>
+                                <li class="content__item content__item_description">
+                                    <span class="content__span">Description</span>
+                                    <p class="content__text" th:text="${movie.getDescription()}"></p>
+                                </li>
+                            </ul>
+                            <div class="content__actions" sec:authorize="isAuthenticated()">
+                                <button class="content__button content__button_review">Add Review</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movie__reviews reviews">
+                        <h2 class="reviews__title">Reviews</h2>
+                        <form class="reviews__form form"  th:action="@{${'/movies/' + movie.getId()}}" th:object="${newReview}" method="post">
+                            <div class="form__input-field">
+                                <label class="form__label" for="input-title">Title: </label>
+                                <input type="text" class="form__input" id="input-title" th:field="*{title}">
+                            </div>
+                            <div class="form__input-field">
+                                <label class="form__label" for="input-rating">Rating: </label>
+                                <div class="form__rating rating">
+                                    <span class="rating__star" onclick="updateRating(1)">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.58699 8.236L11.185 3.004C11.2606 2.85259 11.3769 2.72523 11.5209 2.63622C11.6648 2.54721 11.8307 2.50006 12 2.50006C12.1692 2.50006 12.3351 2.54721 12.4791 2.63622C12.6231 2.72523 12.7394 2.85259 12.815 3.004L15.413 8.236L21.221 9.08C21.3885 9.10323 21.5461 9.17309 21.6759 9.28161C21.8056 9.39013 21.9022 9.53294 21.9546 9.69373C22.0071 9.85452 22.0133 10.0268 21.9725 10.191C21.9317 10.3551 21.8456 10.5045 21.724 10.622L17.522 14.692L18.514 20.442C18.641 21.18 17.861 21.742 17.194 21.394L12 18.678L6.80499 21.394C6.13899 21.743 5.35899 21.18 5.48599 20.441L6.47799 14.691L2.27599 10.621C2.15498 10.5034 2.06939 10.3542 2.02896 10.1903C1.98852 10.0265 1.99487 9.85457 2.04726 9.69415C2.09966 9.53373 2.19601 9.39122 2.32536 9.28284C2.45471 9.17445 2.61188 9.10452 2.77899 9.081L8.58699 8.236Z" fill="#ECEBE3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="rating__star" onclick="updateRating(2)">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.58699 8.236L11.185 3.004C11.2606 2.85259 11.3769 2.72523 11.5209 2.63622C11.6648 2.54721 11.8307 2.50006 12 2.50006C12.1692 2.50006 12.3351 2.54721 12.4791 2.63622C12.6231 2.72523 12.7394 2.85259 12.815 3.004L15.413 8.236L21.221 9.08C21.3885 9.10323 21.5461 9.17309 21.6759 9.28161C21.8056 9.39013 21.9022 9.53294 21.9546 9.69373C22.0071 9.85452 22.0133 10.0268 21.9725 10.191C21.9317 10.3551 21.8456 10.5045 21.724 10.622L17.522 14.692L18.514 20.442C18.641 21.18 17.861 21.742 17.194 21.394L12 18.678L6.80499 21.394C6.13899 21.743 5.35899 21.18 5.48599 20.441L6.47799 14.691L2.27599 10.621C2.15498 10.5034 2.06939 10.3542 2.02896 10.1903C1.98852 10.0265 1.99487 9.85457 2.04726 9.69415C2.09966 9.53373 2.19601 9.39122 2.32536 9.28284C2.45471 9.17445 2.61188 9.10452 2.77899 9.081L8.58699 8.236Z" fill="#ECEBE3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="rating__star" onclick="updateRating(3)">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.58699 8.236L11.185 3.004C11.2606 2.85259 11.3769 2.72523 11.5209 2.63622C11.6648 2.54721 11.8307 2.50006 12 2.50006C12.1692 2.50006 12.3351 2.54721 12.4791 2.63622C12.6231 2.72523 12.7394 2.85259 12.815 3.004L15.413 8.236L21.221 9.08C21.3885 9.10323 21.5461 9.17309 21.6759 9.28161C21.8056 9.39013 21.9022 9.53294 21.9546 9.69373C22.0071 9.85452 22.0133 10.0268 21.9725 10.191C21.9317 10.3551 21.8456 10.5045 21.724 10.622L17.522 14.692L18.514 20.442C18.641 21.18 17.861 21.742 17.194 21.394L12 18.678L6.80499 21.394C6.13899 21.743 5.35899 21.18 5.48599 20.441L6.47799 14.691L2.27599 10.621C2.15498 10.5034 2.06939 10.3542 2.02896 10.1903C1.98852 10.0265 1.99487 9.85457 2.04726 9.69415C2.09966 9.53373 2.19601 9.39122 2.32536 9.28284C2.45471 9.17445 2.61188 9.10452 2.77899 9.081L8.58699 8.236Z" fill="#ECEBE3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="rating__star" onclick="updateRating(4)">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.58699 8.236L11.185 3.004C11.2606 2.85259 11.3769 2.72523 11.5209 2.63622C11.6648 2.54721 11.8307 2.50006 12 2.50006C12.1692 2.50006 12.3351 2.54721 12.4791 2.63622C12.6231 2.72523 12.7394 2.85259 12.815 3.004L15.413 8.236L21.221 9.08C21.3885 9.10323 21.5461 9.17309 21.6759 9.28161C21.8056 9.39013 21.9022 9.53294 21.9546 9.69373C22.0071 9.85452 22.0133 10.0268 21.9725 10.191C21.9317 10.3551 21.8456 10.5045 21.724 10.622L17.522 14.692L18.514 20.442C18.641 21.18 17.861 21.742 17.194 21.394L12 18.678L6.80499 21.394C6.13899 21.743 5.35899 21.18 5.48599 20.441L6.47799 14.691L2.27599 10.621C2.15498 10.5034 2.06939 10.3542 2.02896 10.1903C1.98852 10.0265 1.99487 9.85457 2.04726 9.69415C2.09966 9.53373 2.19601 9.39122 2.32536 9.28284C2.45471 9.17445 2.61188 9.10452 2.77899 9.081L8.58699 8.236Z" fill="#ECEBE3"/>
+                                        </svg>
+                                    </span>
+                                    <span class="rating__star" onclick="updateRating(5)">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.58699 8.236L11.185 3.004C11.2606 2.85259 11.3769 2.72523 11.5209 2.63622C11.6648 2.54721 11.8307 2.50006 12 2.50006C12.1692 2.50006 12.3351 2.54721 12.4791 2.63622C12.6231 2.72523 12.7394 2.85259 12.815 3.004L15.413 8.236L21.221 9.08C21.3885 9.10323 21.5461 9.17309 21.6759 9.28161C21.8056 9.39013 21.9022 9.53294 21.9546 9.69373C22.0071 9.85452 22.0133 10.0268 21.9725 10.191C21.9317 10.3551 21.8456 10.5045 21.724 10.622L17.522 14.692L18.514 20.442C18.641 21.18 17.861 21.742 17.194 21.394L12 18.678L6.80499 21.394C6.13899 21.743 5.35899 21.18 5.48599 20.441L6.47799 14.691L2.27599 10.621C2.15498 10.5034 2.06939 10.3542 2.02896 10.1903C1.98852 10.0265 1.99487 9.85457 2.04726 9.69415C2.09966 9.53373 2.19601 9.39122 2.32536 9.28284C2.45471 9.17445 2.61188 9.10452 2.77899 9.081L8.58699 8.236Z" fill="#ECEBE3"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <input class="form__input form__input_rating" type="number" id="input-rating" value="0" th:field="*{rating}">
+                            </div>
+                            <div class="form__input-field">
+                                <label class="form__label" for="textarea-content">Review: </label>
+                                <textarea class="form__textarea" id="textarea-content" th:field="*{content}"></textarea>
+                            </div>
+                            <button class="form__button">Send</button>
+                        </form>
+                        <ul class="reviews__list">
+                            <li class="reviews__item item-reviews" th:each="review : ${reviews}">
+                                <div class="item-reviews__title-block">
+                                    <h3 class="item-reviews__title" th:text="${review.getTitle()}"></h3>
+                                    <span class="item-reviews__rating" th:text="${review.getRating()}"></span>
+                                </div>
+                                <p class="item-reviews__text" th:text="${review.getContent()}"></p>
+                                <span class="item-reviews__date" th:text="${review.getUser().getUsername() + ', ' + review.getDate()}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+
+    <script th:src="@{/js/moviePageActions.js}"></script>
+</body>
+</html>

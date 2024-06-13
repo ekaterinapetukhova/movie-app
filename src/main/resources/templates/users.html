@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head">
+    <title id="pageTitle">Users</title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section users">
+                <div class="users__container">
+                    <ul class="users__list">
+                        <li class="users__item">
+                            <p class="users__text">Username</p>
+                            <p class="users__text">First name</p>
+                            <p class="users__text">Last name</p>
+                            <p class="users__text">Email</p>
+                        </li>
+                        <li class="users__item" th:each="user : ${users}">
+                            <p class="users__text" th:text="${user.getUsername()}"></p>
+                            <p class="users__text" th:text="${user.getFirstName()}"></p>
+                            <p class="users__text" th:text="${user.getLastName()}"></p>
+                            <p class="users__text" th:text="${user.getEmail()}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+</body>
+</html>

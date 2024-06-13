@@ -1,0 +1,19 @@
+<header class="header" th:fragment="header"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="header__container">
+        <h1 class="header__logo">
+            <a class="header__link" th:href="@{/}" >Movie <span class="header__logo_accent">App</span></a>
+        </h1>
+        <div class="header__actions" sec:authorize="!isAuthenticated()">
+            <a class="header__link" th:classappend="${module == 'login' ? 'active_link' : ''}" th:href="@{/login}">Login</a>
+            <a class="header__link" th:classappend="${module == 'registration' ? 'active_link' : ''}" th:href="@{/registration}">Registration</a>
+        </div>
+        <div class="header__actions" sec:authorize="hasAuthority('ADMIN')">
+            <a class="header__link" th:href="@{/users}" th:classappend="${module == 'users' ? 'active_link' : ''}">Users</a>
+            <a class="header__link" th:href="@{/add-movie}" th:classappend="${module == 'add-movie' ? 'active_link' : ''}">Add Movie</a>
+        </div>
+        <div class="header__actions" sec:authorize="isAuthenticated()">
+            <p class="header__text" sec:authentication="name"></p>
+            <a class="header__link" th:href="@{/logout}">Log Out</a>
+        </div>
+    </div>
+</header>

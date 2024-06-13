@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:include="fragments/head">
+    <title id="pageTitle">Registration</title>
+</head>
+<body>
+    <div class="wrapper">
+        <img th:replace="fragments/background">
+
+        <header th:replace="fragments/header"></header>
+
+        <main class="page">
+            <section class="page__section registration">
+                <div class="registration__container">
+                    <h2 class="registration__title">Registration</h2>
+                    <form class="registration__form form"
+                          th:action="@{/registration}"
+                          th:object="${user}"
+                          method="post"
+                    >
+                           <div class="form__input-field">
+                               <label class="form__label" for="firstName">First name:</label>
+                               <input class="form__input" type="text" id="firstName" th:field="*{firstName}" autocomplete="off">
+                               <span class="form__error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                           </div>
+                           <div class="form__input-field">
+                               <label class="form__label" for="lastName">Last name:</label>
+                               <input class="form__input" type="text" id="lastName" th:field="*{lastName}" autocomplete="off">
+                               <span class="form__error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                           </div>
+                           <div class="form__input-field">
+                               <label class="form__label" for="username">Username:</label>
+                               <input class="form__input" type="text" id="username" th:field="*{username}" autocomplete="off">
+                               <span class="form__error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                           </div>
+                           <div class="form__input-field">
+                               <label class="form__label" for="password">Password:</label>
+                               <input class="form__input" type="password" id="password" th:field="*{password}" autocomplete="off">
+                               <span class="form__error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                           </div>
+                           <div class="form__input-field">
+                               <label class="form__label" for="email">Email:</label>
+                               <input class="form__input" type="email" id="email" th:field="*{email}" autocomplete="off">
+                               <span class="form__error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                           </div>
+                        <button class="form__button">Sign Up</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="fragments/footer"></footer>
+    </div>
+
+    <script th:src="@{/js/registrationFormValidation.js}"></script>
+</body>
+</html>

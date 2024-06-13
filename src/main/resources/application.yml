@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/movieapp
+    username: ekaterinapetukhova
+    password: Pea12122000
+    driver-class-name: org.postgresql.Driver
+  mvc:
+    static-path-pattern: /**
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        globally_quoted_identifiers: true
+
+upload:
+  path: src/main/resources/static/images
